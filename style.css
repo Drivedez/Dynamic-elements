@@ -1,0 +1,151 @@
+:root {
+    --speed: 1;          /* швидкість анімацій */
+    --bg: #0f172a;       /* фон сторінки */
+    --card: #0ea5a4;     /* колір картки */
+    --muted: #94a3b8;    /* приглушений колір */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg), #071028);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* =========================
+   Контейнер
+========================= */
+.wrap {
+    max-width: 900px;
+    width: 100%;
+}
+
+/* =========================
+   Кнопки керування
+========================= */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 26px;
+}
+
+button {
+    background: #0b1220;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease; /* плавний перехід для hover/active */
+}
+
+/* Підсвічування при наведенні */
+button:hover {
+    background: #10b981;      /* зелений фон */
+    color: #0f172a;           /* темний текст */
+    transform: scale(1.05);   /* трохи збільшуємо кнопку */
+    box-shadow: 0 4px 12px rgba(16,185,129,0.4); /* тінь */
+}
+
+/* Ефект при натисканні */
+button:active {
+    background: #059669;      /* темніший зелений фон */
+    transform: scale(0.98);   /* трохи зменшуємо кнопку */
+    box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+}
+
+/* =========================
+   Сцена та елементи
+========================= */
+.stage {
+    background: rgba(255,255,255,0.05);
+    padding: 36px;
+    border-radius: 16px;
+    min-height: 380px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* -------------------------
+   Кулька
+------------------------- */
+.ball {
+    width: 64px;
+    height: 64px;
+    background: #10b981;
+    border-radius: 50%;
+    position: absolute;
+    left: 10%;
+    bottom: 10%;
+    animation: bounce calc(1.2s / var(--speed)) ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-150px); }
+    100% { transform: translateY(0); }
+}
+
+/* -------------------------
+   Картка
+------------------------- */
+.card {
+    width: 220px;
+    height: 140px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    animation: floaty calc(4s / var(--speed)) ease-in-out infinite;
+}
+
+@keyframes floaty {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+    100% { transform: translateY(0); }
+}
+
+/* -------------------------
+   Квадрат
+------------------------- */
+.square {
+    width: 140px;
+    height: 140px;
+    background: #fb7185;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    animation: spin calc(5s / var(--speed)) linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* =========================
+   Класи для керування JS
+========================= */
+.paused {
+    animation-play-state: paused !important; /* ставимо паузу для анімації */
+}
+
+.hidden {
+    opacity: 0;                 /* сховати елемент */
+    transform: scale(0.8);      /* зменшити */
+    pointer-events: none;       /* виключити кліки */
+}
